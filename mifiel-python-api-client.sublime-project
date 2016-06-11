@@ -1,0 +1,19 @@
+{
+  "folders":
+  [
+    {
+      "file_exclude_patterns": [
+        ".Python",
+        "pip-selfcheck.json",
+        "*.sublime-workspace"
+      ],
+      "folder_exclude_patterns": [
+        "env"
+      ],
+      "path": ".",
+      "follow_symlinks": true,
+      "tab_size": 2,
+      "translate_tabs_to_spaces": false,
+    }
+  ]
+}
