@@ -12,6 +12,7 @@ setup(name='mifiel',
       author='Genaro Madrid',
       author_email='genmadrid@gmail.com',
       license='MIT',
+      test_suite='nose2.collector.collector',
       packages=['mifiel'],
       install_requires=[
         'requests'

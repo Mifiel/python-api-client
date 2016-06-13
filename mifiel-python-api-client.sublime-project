@@ -12,7 +12,8 @@
         "build",
         "dist",
         "*.egg-info",
-        "__pycache__"
+        "__pycache__",
+        "htmlcov"
       ],
       "path": ".",
       "follow_symlinks": true,

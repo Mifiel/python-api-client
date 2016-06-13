@@ -5,3 +5,5 @@
 env
 .Python
 .env
+.coverage
+htmlcov
