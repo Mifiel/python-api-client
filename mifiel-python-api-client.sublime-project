@@ -8,7 +8,12 @@
         "*.sublime-workspace"
       ],
       "folder_exclude_patterns": [
-        "env"
+        "env",
+        "build",
+        "dist",
+        "*.egg-info",
+        "__pycache__",
+        "htmlcov"
       ],
       "path": ".",
       "follow_symlinks": true,
