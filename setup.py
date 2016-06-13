@@ -6,9 +6,10 @@ def readme():
 
 setup(name='mifiel',
       version='0.0.1',
-      description='The funniest joke in the world',
+      description='mifiel.com API Client',
       long_description=readme(),
       url='http://github.com/mifiel/python-api-client',
+      download_url='https://github.com/Mifiel/python-api-client/tarball/0.0.1',
       author='Genaro Madrid',
       author_email='genmadrid@gmail.com',
       license='MIT',
