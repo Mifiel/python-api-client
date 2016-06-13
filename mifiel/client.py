@@ -1,6 +1,6 @@
 from mifiel import ApiAuth
 
-class Mifiel:
+class Client:
   def __init__(self, app_id, secret_key):
     self.sandbox = False
     self.auth = ApiAuth(app_id, secret_key)

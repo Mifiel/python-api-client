@@ -1,17 +1,17 @@
 from mifiel import Base
 
 class Document(Base):
-  def __init__(self, mifiel):
-    Base.__init__(self, mifiel, 'documents')
+  def __init__(self, client):
+    Base.__init__(self, client, 'documents')
 
   @staticmethod
-  def get(mifiel, doc_id):
-    doc = Document(mifiel)
+  def get(client, doc_id):
+    doc = Document(client)
     doc.process_request('get', url=doc.url(doc_id))
     return doc
 
   @staticmethod
-  def create(mifiel, signatories, file=None, dhash=None, callback_url=None):
+  def create(client, signatories, file=None, dhash=None, callback_url=None):
     if not file and not dhash:
       raise ValueError('Either file or hash must be provided')
     if file and dhash:
@@ -22,6 +22,6 @@ class Document(Base):
     if file: data['file'] = open(file)
     if dhash: data['original_hash'] = dhash
 
-    doc = Document(mifiel)
+    doc = Document(client)
     doc.process_request('post', data=data)
     return doc
