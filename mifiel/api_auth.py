@@ -49,7 +49,7 @@ class ApiAuth(AuthBase):
       canonical_string.encode('ascii'),
       hashlib.sha1
     ).digest()
-    signature = base64.encodestring(digest).rstrip().decode()
+    signature = base64.encodebytes(digest).rstrip().decode()
 
     request.headers['Authorization'] = 'APIAuth %s:%s' % (self.access_id, signature)
     return request
