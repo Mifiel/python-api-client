@@ -1,4 +1,9 @@
+*.pyc
+/dist/
+/*.egg-info
 *.sublime-workspace
 env
 .Python
 .env
+.coverage
+htmlcov
