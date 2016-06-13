@@ -36,7 +36,7 @@ class TestDocument(BaseMifielCase):
     assert req.headers['Authorization'] is not None
 
   @responses.activate
-  def test_save(self):
+  def test_update(self):
     doc_id = 'some-doc-id'
     url = self.client.url().format(path='documents/'+doc_id)
     self.mock_doc_response(responses.PUT, url, doc_id)
@@ -55,3 +55,31 @@ class TestDocument(BaseMifielCase):
     self.assertEqual(doc.callback_url, 'some')
     assert req.headers['Authorization'] is not None
 
+  def test_update_without_id(self):
+    doc = Document(self.client)
+    doc.callback_url = 'some-callback'
+    self.assertFalse(doc.save())
+
+  @responses.activate
+  def test_create(self):
+    doc_id = 'some-doc-id'
+    url = self.client.url().format(path='documents')
+    self.mock_doc_response(responses.POST, url, doc_id)
+
+    signatories = [{ 'email': 'some@email.com' }]
+    doc = Document.create(self.client, signatories, dhash='some-sha256-hash')
+
+    req = self.get_last_request()
+    self.assertEqual(req.method, 'POST')
+    self.assertEqual(req.url, url)
+    self.assertEqual(doc.id, doc_id)
+    self.assertEqual(doc.callback_url, 'some')
+    assert req.headers['Authorization'] is not None
+
+  def test_create_without_file_or_hash(self):
+    with self.assertRaises(ValueError):
+      Document.create(self.client, [])
+
+  def test_create_with_file_and_hash(self):
+    with self.assertRaises(ValueError):
+      Document.create(self.client, [], dhash='dhash', file='file')

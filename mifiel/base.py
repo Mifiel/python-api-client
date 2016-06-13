@@ -7,12 +7,12 @@ class Base(object):
     object.__setattr__(self, 'path', path)
     object.__setattr__(self, 'mifiel', mifiel)
     object.__setattr__(self, 'response', Response())
+    # initialize id
+    self.id = None
 
   def save(self):
-    if self.id:
-      self.process_request('put', url=self.url(self.id), data=self.get_data())
-    else:
-      self.process_request('post', data=self.get_data())
+    if self.id is None: return False
+    self.process_request('put', url=self.url(self.id), data=self.get_data())
 
   def url(self, path=None):
     p = self.path
