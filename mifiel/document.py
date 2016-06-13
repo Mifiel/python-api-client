@@ -5,7 +5,7 @@ class Document(Base):
     Base.__init__(self, client, 'documents')
 
   @staticmethod
-  def get(client, doc_id):
+  def find(client, doc_id):
     doc = Document(client)
     doc.process_request('get', url=doc.url(doc_id))
     return doc
@@ -18,9 +18,12 @@ class Document(Base):
       raise ValueError('Only one of file or hash must be provided')
 
     data = { 'signatories': signatories }
-    if callback_url: data['callback_url'] = callback_url
-    if file: data['file'] = open(file)
-    if dhash: data['original_hash'] = dhash
+    if callback_url:
+      data['callback_url'] = callback_url
+    if file:
+      data['file'] = open(file)
+    if dhash:
+      data['original_hash'] = dhash
 
     doc = Document(client)
     doc.process_request('post', data=data)

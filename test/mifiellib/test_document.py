@@ -25,7 +25,7 @@ class TestDocument(BaseMifielCase):
     url = self.client.url().format(path='documents/'+doc_id)
     self.mock_doc_response(responses.GET, url, doc_id)
 
-    doc = Document.get(self.client, doc_id)
+    doc = Document.find(self.client, doc_id)
 
     req = self.get_last_request()
     self.assertEqual(req.body, None)
