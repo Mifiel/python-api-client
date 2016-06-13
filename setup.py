@@ -5,7 +5,7 @@ def readme():
     return f.read()
 
 setup(name='mifiel',
-      version='0.0.0',
+      version='0.0.1',
       description='The funniest joke in the world',
       long_description=readme(),
       url='http://github.com/mifiel/python-api-client',
