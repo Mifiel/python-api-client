@@ -2,10 +2,10 @@ from mifiel import Response
 import requests
 
 class Base(object):
-  def __init__(self, mifiel, path):
+  def __init__(self, client, path):
     object.__setattr__(self, 'sandbox', False)
     object.__setattr__(self, 'path', path)
-    object.__setattr__(self, 'mifiel', mifiel)
+    object.__setattr__(self, 'client', client)
     object.__setattr__(self, 'response', Response())
     # initialize id
     self.id = None
@@ -19,20 +19,20 @@ class Base(object):
     if path:
       p = '{}/{}'.format(p, path)
 
-    return self.mifiel.url().format(path=p)
+    return self.client.url().format(path=p)
 
-  def process_request(self, method, url=None, data=None):
+  def process_request(self, method, url=None, data=None, file=None):
     if not url:
       url = self.url()
 
     if method == 'post':
-      response = requests.post(url, auth=self.mifiel.auth, json=data)
+      response = requests.post(url, auth=self.client.auth, json=data)
     elif method == 'put':
-      response = requests.put(url, auth=self.mifiel.auth, json=data)
+      response = requests.put(url, auth=self.client.auth, json=data)
     elif method == 'get':
-      response = requests.get(url, auth=self.mifiel.auth, json=data)
+      response = requests.get(url, auth=self.client.auth, json=data)
     elif method == 'delete':
-      response = requests.delete(url, auth=self.mifiel.auth, json=data)
+      response = requests.delete(url, auth=self.client.auth, json=data)
 
     self.set_data(response)
 
