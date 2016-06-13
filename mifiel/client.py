@@ -1,9 +1,9 @@
-from mifiel import ApiAuth
+from .api_auth import RequestsApiAuth
 
 class Client:
   def __init__(self, app_id, secret_key):
     self.sandbox = False
-    self.auth = ApiAuth(app_id, secret_key)
+    self.auth = RequestsApiAuth(app_id, secret_key)
     self.base_url = 'https://www.mifiel.com'
 
   def use_sandbox(self):
