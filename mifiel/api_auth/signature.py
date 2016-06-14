@@ -2,7 +2,10 @@ import hmac
 import base64
 import hashlib
 import datetime
-from urllib.parse import urlparse
+try:
+  from urllib.parse import urlparse
+except:
+  from urlparse import urlparse
 
 class Signature:
   def __init__(self, secret_key):
