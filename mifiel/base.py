@@ -26,8 +26,6 @@ class Base(object):
   def process_request(self, method, url=None, data=None, files=None):
     if not url:
       url = self.url()
-    if files:
-      files = {'file':(basename(files.name), files, 'application/octet-stream')}
     if method == 'post':
       response = requests.post(url, auth=self.client.auth, data=data, files=files)
     elif method == 'put':
