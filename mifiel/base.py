@@ -1,6 +1,5 @@
 from mifiel import Response
 import requests
-from os.path import basename
 
 class Base(object):
   def __init__(self, client, path):
@@ -26,8 +25,14 @@ class Base(object):
   def process_request(self, method, url=None, data=None, files=None):
     if not url:
       url = self.url()
+
     if method == 'post':
-      response = requests.post(url, auth=self.client.auth, data=data, files=files)
+      response = requests.post(
+        url=url,
+        auth=self.client.auth,
+        data=data,
+        files=files
+      )
     elif method == 'put':
       response = requests.put(url, auth=self.client.auth, json=data)
     elif method == 'get':

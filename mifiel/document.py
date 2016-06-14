@@ -1,5 +1,6 @@
 from mifiel import Base
 import mimetypes
+from os.path import basename
 
 class Document(Base):
   def __init__(self, client):
@@ -21,8 +22,10 @@ class Document(Base):
     sig_numbers = {}
 
     for index, item in enumerate(signatories):
-      for key, val in item.iteritems():
-        sig_numbers.update({'signatories['+str(index)+']['+str(key)+']':val})
+      for key, val in item.items():
+        sig_numbers.update(
+          {'signatories[' + str(index) + '][' + str(key) + ']': val}
+        )
 
     data = sig_numbers
 

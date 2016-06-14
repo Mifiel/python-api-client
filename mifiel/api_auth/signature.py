@@ -23,7 +23,11 @@ class Signature:
       if not body:
         body = ''
       if isinstance(body, str):
-        m.update(body.encode('ascii'))
+        try:
+          m.update(body.encode('ascii'))
+        # For Python 2.7
+        except(UnicodeDecodeError):
+          m.update(body)
       else:
         m.update(body)
 
