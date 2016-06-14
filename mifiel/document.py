@@ -29,10 +29,10 @@ class Document(Base):
       data['callback_url'] = callback_url
     if file:
       _file = open(file, 'rb')
-      files = {'file':(basename(_file.name), _file, 'application/pdf')}
+      file = {'file':(basename(_file.name), _file, 'application/pdf')}
     if dhash:
       data['original_hash'] = dhash
 
     doc = Document(client)
-    doc.process_request('post', data=data, files=files)
+    doc.process_request('post', data=data, files=file)
     return doc
