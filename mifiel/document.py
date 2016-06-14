@@ -11,7 +11,7 @@ class Document(Base):
     return doc
 
   @staticmethod
-  def create(client, signatories, files=None, dhash=None, callback_url=None):
+  def create(client, signatories, file=None, dhash=None, callback_url=None):
     if not file and not dhash:
       raise ValueError('Either file or hash must be provided')
     if file and dhash:
@@ -27,8 +27,8 @@ class Document(Base):
 
     if callback_url:
       data['callback_url'] = callback_url
-    if files:
-      _file = open(files, 'rb')
+    if file:
+      _file = open(file, 'rb')
     if dhash:
       data['original_hash'] = dhash
 
