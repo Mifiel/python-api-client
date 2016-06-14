@@ -17,14 +17,22 @@ class Document(Base):
     if file and dhash:
       raise ValueError('Only one of file or hash must be provided')
 
-    data = { 'signatories': signatories }
+    sig_numbers = {}
+
+    for index, item in enumerate(signatories):
+      for key, val in item.iteritems():
+        sig_numbers.update({'signatories['+str(index)+']['+str(key)+']':val})
+
+    data = sig_numbers
+
     if callback_url:
       data['callback_url'] = callback_url
     if file:
-      data['file'] = open(file)
+      _file = open(file, 'rb')
+      file = {'file':(basename(_file.name), _file, 'application/pdf')}
     if dhash:
       data['original_hash'] = dhash
 
     doc = Document(client)
-    doc.process_request('post', data=data)
+    doc.process_request('post', data=data, files=file)
     return doc
