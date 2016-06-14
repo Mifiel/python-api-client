@@ -78,6 +78,30 @@ class TestDocument(BaseMifielCase):
     self.assertEqual(doc.callback_url, 'some')
     assert req.headers['Authorization'] is not None
 
+  @responses.activate
+  def test_create_with_file(self):
+    doc_id = 'some-doc-id'
+    url = self.client.url().format(path='documents')
+    self.mock_doc_response(responses.POST, url, doc_id)
+
+    signatories = [
+      {'email': 'some@email.com', 'tax_id': 'ASDD543412ERP'},
+      {'email': 'some@email1.com', 'tax_id': 'ASDD543413ERP'}
+    ]
+    doc = Document.create(
+      client=self.client,
+      signatories=signatories,
+      file='test/fixtures/example.pdf',
+      callback_url='https://www.example.com'
+    )
+
+    req = self.get_last_request()
+    self.assertEqual(req.method, 'POST')
+    self.assertEqual(req.url, url)
+    self.assertEqual(doc.id, doc_id)
+    self.assertEqual(doc.callback_url, 'some')
+    assert req.headers['Authorization'] is not None
+
   def test_create_without_file_or_hash(self):
     with self.assertRaises(ValueError):
       Document.create(self.client, [])
