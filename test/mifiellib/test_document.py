@@ -6,7 +6,7 @@ import responses
 
 class TestDocument(BaseMifielCase):
   def setUp(self):
-    super().setUp()
+    super(TestDocument, self).setUp()
     self.doc = Document(self.client)
 
   def mock_doc_response(self, method, url, doc_id):

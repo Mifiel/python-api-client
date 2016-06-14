@@ -47,4 +47,4 @@ class Signature:
       self.canonical_string.encode('ascii'),
       hashlib.sha1
     ).digest()
-    self.signature = base64.encodebytes(digest).rstrip().decode()
+    self.signature = base64.b64encode(digest).rstrip().decode()
