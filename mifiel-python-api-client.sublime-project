@@ -11,6 +11,7 @@
   "settings": {
     "pep8_ignore": [
       "E111",
+      "E121",
       "E302"
     ]
   },
@@ -20,7 +21,8 @@
       "file_exclude_patterns": [
         ".Python",
         "pip-selfcheck.json",
-        "*.sublime-workspace"
+        "*.sublime-workspace",
+        "*.pyc"
       ],
       "folder_exclude_patterns": [
         "env",

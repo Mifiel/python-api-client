@@ -8,7 +8,6 @@ requests.get(url, auth=ApiAuth(app_id, secret_key))
 """
 from requests.auth import AuthBase
 
-from .signature import Signature
 from .api_auth import ApiAuth
 
 class RequestsApiAuth(AuthBase):

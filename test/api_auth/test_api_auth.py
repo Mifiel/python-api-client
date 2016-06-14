@@ -1,7 +1,8 @@
 from mifiel.api_auth import RequestsApiAuth
 from testlib import BaseTestCase
 
-import base64, hashlib
+import base64
+import hashlib
 import responses
 import requests
 
@@ -13,13 +14,14 @@ class TestApiAuth(BaseTestCase):
 
   def make_request(self, path, query=None):
     url = 'http://example.com/api/v1/{path}'.format(path=path)
-    if query: url += '?{query}'.format(query=query)
+    if query:
+      url += '?{query}'.format(query=query)
     responses.add(**{
-      'method'         : responses.GET,
-      'url'            : url,
-      'body'           : '{"ok": "all ok"}',
-      'status'         : 200,
-      'content_type'   : 'application/json',
+      'method': responses.GET,
+      'url': url,
+      'body': '{"ok": "all ok"}',
+      'status': 200,
+      'content_type': 'application/json',
       'match_querystring': True
     })
     requests.get(url, auth=self.api_auth, data=query)

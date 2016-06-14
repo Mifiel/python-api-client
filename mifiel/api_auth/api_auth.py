@@ -24,5 +24,6 @@ class ApiAuth():
     request.headers['content-md5'] = sig.content_md5
     request.headers['date'] = sig.httpdate
 
-    request.headers['Authorization'] = 'APIAuth %s:%s' % (self.access_id, sig.signature)
+    auth = 'APIAuth %s:%s' % (self.access_id, sig.signature)
+    request.headers['Authorization'] = auth
     return request

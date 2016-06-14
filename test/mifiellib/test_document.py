@@ -9,8 +9,10 @@ class TestDocument(BaseMifielCase):
     super().setUp()
     self.doc = Document(self.client)
 
-  def mock_doc_response(self, merhod, url, doc_id):
-    responses.add(merhod, url,
+  def mock_doc_response(self, method, url, doc_id):
+    responses.add(
+      method=method,
+      url=url,
       body=json.dumps({
         'id': doc_id,
         'callback_url': 'some'
@@ -22,7 +24,7 @@ class TestDocument(BaseMifielCase):
   @responses.activate
   def test_get(self):
     doc_id = 'some-doc-id'
-    url = self.client.url().format(path='documents/'+doc_id)
+    url = self.client.url().format(path='documents/' + doc_id)
     self.mock_doc_response(responses.GET, url, doc_id)
 
     doc = Document.find(self.client, doc_id)
@@ -38,7 +40,7 @@ class TestDocument(BaseMifielCase):
   @responses.activate
   def test_update(self):
     doc_id = 'some-doc-id'
-    url = self.client.url().format(path='documents/'+doc_id)
+    url = self.client.url().format(path='documents/' + doc_id)
     self.mock_doc_response(responses.PUT, url, doc_id)
 
     doc = Document(self.client)
@@ -66,7 +68,7 @@ class TestDocument(BaseMifielCase):
     url = self.client.url().format(path='documents')
     self.mock_doc_response(responses.POST, url, doc_id)
 
-    signatories = [{ 'email': 'some@email.com' }]
+    signatories = [{'email': 'some@email.com'}]
     doc = Document.create(self.client, signatories, dhash='some-sha256-hash')
 
     req = self.get_last_request()

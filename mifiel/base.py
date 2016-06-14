@@ -11,7 +11,8 @@ class Base(object):
     self.id = None
 
   def save(self):
-    if self.id is None: return False
+    if self.id is None:
+      return False
     self.process_request('put', url=self.url(self.id), data=self.get_data())
 
   def url(self, path=None):

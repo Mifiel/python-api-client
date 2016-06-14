@@ -1,4 +1,7 @@
-import hmac, base64, hashlib, datetime
+import hmac
+import base64
+import hashlib
+import datetime
 from urllib.parse import urlparse
 
 class Signature:
@@ -28,12 +31,13 @@ class Signature:
       now = datetime.datetime.utcnow()
       self.httpdate = now.strftime('%a, %d %b %Y %H:%M:%S GMT')
 
-    url  = urlparse(url)
+    url = urlparse(url)
     path = url.path
     if url.query:
       path = path + '?' + url.query
 
-    self.canonical_string = '%s,%s,%s,%s,%s' % (method, content_type, self.content_md5, path, self.httpdate)
+    rep = (method, content_type, self.content_md5, path, self.httpdate)
+    self.canonical_string = '%s,%s,%s,%s,%s' % rep
 
     digest = hmac.new(
       self.secret_key,
