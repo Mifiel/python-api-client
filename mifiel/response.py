@@ -4,7 +4,7 @@ class Response(object):
 
   def set_response(self, response):
     response.raise_for_status()
-    object.__setattr__(self, 'datastore', response.json())
+    object.__setattr__(self, 'datastore', response)
 
   def get_response(self):
     return self.datastore

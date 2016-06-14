@@ -11,20 +11,27 @@ class Document(Base):
     return doc
 
   @staticmethod
-  def create(client, signatories, file=None, dhash=None, callback_url=None):
+  def create(client, signatories, files=None, dhash=None, callback_url=None):
     if not file and not dhash:
       raise ValueError('Either file or hash must be provided')
     if file and dhash:
       raise ValueError('Only one of file or hash must be provided')
 
-    data = { 'signatories': signatories }
+    sig_numbers = {}
+
+    for index, item in enumerate(signatories):
+      for key, val in item.iteritems():
+        sig_numbers.update({'signatories['+str(index)+']['+str(key)+']':val})
+
+    data = sig_numbers
+
     if callback_url:
       data['callback_url'] = callback_url
-    if file:
-      data['file'] = open(file)
+    if files:
+      _file = open(files, 'rb')
     if dhash:
       data['original_hash'] = dhash
 
     doc = Document(client)
-    doc.process_request('post', data=data)
+    doc.process_request('post', data=data, files=_file)
     return doc
