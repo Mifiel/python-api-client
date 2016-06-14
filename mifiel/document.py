@@ -1,4 +1,5 @@
 from mifiel import Base
+import mimetypes
 
 class Document(Base):
   def __init__(self, client):
@@ -28,8 +29,9 @@ class Document(Base):
     if callback_url:
       data['callback_url'] = callback_url
     if file:
+      mimetype = mimetypes.guess_type(file)[0]
       _file = open(file, 'rb')
-      file = {'file':(basename(_file.name), _file, 'application/pdf')}
+      file = {'file': (basename(_file.name), _file, mimetype)}
     if dhash:
       data['original_hash'] = dhash
 
