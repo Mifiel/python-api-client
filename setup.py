@@ -15,7 +15,7 @@ setup(name='mifiel',
       author_email='genmadrid@gmail.com',
       license='MIT',
       test_suite='nose2.collector.collector',
-      packages=['mifiel'],
+      packages=['mifiel', 'mifiel.api_auth'],
       install_requires=[
         'requests'
       ],
