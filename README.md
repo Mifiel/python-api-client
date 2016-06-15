@@ -2,6 +2,7 @@
 
 [![Coverage Status][coveralls-image]][coveralls-url]
 [![Build Status][travis-image]][travis-url]
+[![PyPI version][pypi-image]][pypi-url]
 
 Pyton library for [Mifiel](https://www.mifiel.com) API.
 Please read our [documentation](https://www.mifiel.com/api-docs/) for instructions on how to start using the API.
@@ -77,3 +78,6 @@ Just clone the repo, install dependencies as you would in development and run `n
 
 [travis-image]: https://travis-ci.org/Mifiel/python-api-client.svg?branch=master
 [travis-url]: https://travis-ci.org/Mifiel/python-api-client
+
+[pypi-image]: https://badge.fury.io/py/mifiel.svg
+[pypi-url]: https://badge.fury.io/py/mifiel

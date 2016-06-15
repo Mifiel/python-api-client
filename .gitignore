@@ -7,3 +7,5 @@ env
 .env
 .coverage
 htmlcov
+build
+README.txt

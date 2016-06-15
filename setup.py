@@ -1,13 +1,15 @@
 from setuptools import setup
 
-def readme():
-  with open('README.md') as f:
-    return f.read()
+try:
+  import pypandoc
+  long_description = pypandoc.convert('README.md', 'rst')
+except(IOError, ImportError):
+  long_description = open('README.md').read()
 
 setup(name='mifiel',
       version='0.0.1',
-      description='The funniest joke in the world',
-      long_description=readme(),
+      description='Python API Client library for Mifiel.com',
+      long_description=long_description,
       url='http://github.com/mifiel/python-api-client',
       author='Genaro Madrid',
       author_email='genmadrid@gmail.com',
