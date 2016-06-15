@@ -43,14 +43,26 @@ from mifiel import Document, Client
 client = Client(app_id='APP_ID', secret_key='APP_SECRET')
 
 signatories = [
-  { name: 'Signer 1', email: 'signer1@email.com', tax_id: 'AAA010101AAA' },
-  { name: 'Signer 2', email: 'signer2@email.com', tax_id: 'AAA010102AAA' }
+  { 
+    'name': 'Signer 1', 
+    'email': 'signer1@email.com', 
+    'tax_id': 'AAA010101AAA' 
+  },
+  { 
+    'name': 'Signer 2', 
+    'email': 
+    'signer2@email.com', 
+    'tax_id': 'AAA010102AAA'
+  }
 ]
 # Providde the SHA256 hash of the file you want to sign.
 doc = Document.create(client, signatories, dhash='some-sha256-hash')
 # Or just send the file and we'll take care of everything.
 # We will store the file for you. 
-doc = Document.create(client, signatories, file='path/to/my/file.pdf')
+doc = Document.create(client, signatories, file='test/fixtures/example.pdf')
+
+doc.id # -> '7500e528-ac6f-4ad3-9afd-74487c11576a'
+doc.id # -> '7500e528-ac6f-4ad3-9afd-74487c11576a'
 ```
 
 ## Development
