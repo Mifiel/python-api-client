@@ -6,7 +6,7 @@ except(IOError, ImportError):
   long_description = open('README.md').read()
 
 setup(name='mifiel',
-      version='0.0.1',
+      version='0.0.3',
       description='Python API Client library for Mifiel.com',
       long_description=long_description,
       url='http://github.com/mifiel/python-api-client',
