@@ -1,6 +1,7 @@
 from mifiel import Base
 import mimetypes
 from os.path import basename
+import requests
 
 class Document(Base):
   def __init__(self, client):
@@ -41,3 +42,21 @@ class Document(Base):
     doc = Document(client)
     doc.process_request('post', data=data, files=file)
     return doc
+
+  def save_file(self, path):
+    url_ = self.url('{}/file').format(self.id)
+    response = requests.get(url_, auth=self.client.auth)
+    with open(path, 'w') as file_:
+      file_.write(response.text)
+
+  def save_file_signed(self, path):
+    url_ = self.url('{}/file_signed').format(self.id)
+    response = requests.get(url_, auth=self.client.auth)
+    with open(path, 'w') as file_:
+      file_.write(response.text)
+
+  def save_xml(self, path):
+    url_ = self.url('{}/xml').format(self.id)
+    response = requests.get(url_, auth=self.client.auth)
+    with open(path, 'w') as file_:
+      file_.write(response.text)

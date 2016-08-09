@@ -11,7 +11,8 @@ install:
   - pip install coveralls
 
 script:
-  coverage run setup.py test
+  - mkdir -p tmp
+  - coverage run setup.py test
 
 after_success:
   coveralls
