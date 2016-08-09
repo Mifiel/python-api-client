@@ -65,6 +65,21 @@ doc.id # -> '7500e528-ac6f-4ad3-9afd-74487c11576a'
 doc.id # -> '7500e528-ac6f-4ad3-9afd-74487c11576a'
 ```
 
+- Save Document related files
+
+```python
+from mifiel import Document, Client
+client = Client(app_id='APP_ID', secret_key='APP_SECRET')
+
+doc = Document.find(client, 'id')
+# save the original file
+doc.save_file('path/to/save/file.pdf')
+# save the signed file (original file + signatures page)
+doc.save_file_signed('path/to/save/file-signed.pdf')
+# save the signed xml file
+doc.save_xml('path/to/save/xml.xml')
+```
+
 ## Development
 
 ### Install dependencies
