@@ -15,9 +15,11 @@ pip install mifiel
 
 ## Usage
 
-To start using the API you will need an APP_ID and a APP_SECRET which will be provided upon request (contact us at hola@mifiel.com).
+For your convenience Mifiel offers a Sandbox environment where you can confidently test your code.
 
-You will first need to create an account in [mifiel.com](https://www.mifiel.com) since the APP_ID and APP_SECRET will be linked to your account.
+To start using the API in the Sandbox environment you need to first create an account at [sandbox.mifiel.com](https://sandbox.mifiel.com).
+
+Once you have an account you will need an APP_ID and an APP_SECRET which you can generate in [sandbox.mifiel.com/access_tokens](https://sandbox.mifiel.com/access_tokens).
 
 ### Document methods:
 
