@@ -4,7 +4,7 @@
 [![Build Status][travis-image]][travis-url]
 [![PyPI version][pypi-image]][pypi-url]
 
-Pyton library for [Mifiel](https://www.mifiel.com) API.
+Python library for [Mifiel](https://www.mifiel.com) API.
 Please read our [documentation](http://docs.mifiel.com) for instructions on how to start using the API.
 
 ## Installation
