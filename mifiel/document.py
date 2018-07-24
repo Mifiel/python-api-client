@@ -14,11 +14,13 @@ class Document(Base):
     return doc
 
   @staticmethod
-  def create(client, signatories, file=None, dhash=None, callback_url=None):
+  def create(client, signatories, file=None, dhash=None, callback_url=None, name=None):
     if not file and not dhash:
       raise ValueError('Either file or hash must be provided')
     if file and dhash:
       raise ValueError('Only one of file or hash must be provided')
+    if dhash and not name:
+      raise ValueError('A name is required when using hash')
 
     sig_numbers = {}
 
@@ -38,6 +40,8 @@ class Document(Base):
       file = {'file': (basename(_file.name), _file, mimetype)}
     if dhash:
       data['original_hash'] = dhash
+    if name:
+      data['name'] = name
 
     doc = Document(client)
     doc.process_request('post', data=data, files=file)
