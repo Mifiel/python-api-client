@@ -8,10 +8,11 @@ python:
 
 install:
   - pip install -r requirements.txt
-  - pip install coveralls
 
 script:
   - mkdir -p tmp
+  - pip install requests==2.18.4
+  - pip install coveralls
   - coverage run setup.py test
 
 after_success:
