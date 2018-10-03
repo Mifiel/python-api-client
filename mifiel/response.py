@@ -1,10 +1,15 @@
+import requests
+
 class Response(object):
   def __init__(self):
     object.__setattr__(self, 'datastore', {})
 
   def set_response(self, response):
-    response.raise_for_status()
-    object.__setattr__(self, 'datastore', response.json())
+    if type(response) is requests.models.Response:
+      response.raise_for_status()
+      object.__setattr__(self, 'datastore', response.json())
+    else:
+      object.__setattr__(self, 'datastore', response)
 
   def get_response(self):
     return self.datastore
