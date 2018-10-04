@@ -22,7 +22,7 @@ class Base(object):
 
     return self.client.url().format(path=p)
 
-  def process_request(self, method, url=None, data=None, files=None):
+  def execute_request(self, method, url=None, data=None, json=None, files=None):
     if not url:
       url = self.url()
 
@@ -31,8 +31,13 @@ class Base(object):
         url=url,
         auth=self.client.auth,
         data=data,
+        json=json,
         files=files
       )
+      if files:
+        for file_name in files:
+          file = files[file_name]
+          if file: file[1].close()
     elif method == 'put':
       response = requests.put(url, auth=self.client.auth, json=data)
     elif method == 'get':
@@ -40,6 +45,10 @@ class Base(object):
     elif method == 'delete':
       response = requests.delete(url, auth=self.client.auth, json=data)
 
+    return response
+
+  def process_request(self, method, url=None, data=None, json=None, files=None):
+    response = self.execute_request(method, url, data, json, files)
     self.set_data(response)
 
   def set_data(self, response):
