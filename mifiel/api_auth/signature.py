@@ -2,7 +2,9 @@ import hmac
 import base64
 import hashlib
 import datetime
-from context_manager import setlocale
+
+from mifiel.api_auth.context_manager import setlocale
+
 try:
   from urllib.parse import urlparse
 except:
