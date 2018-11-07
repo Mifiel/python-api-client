@@ -2,6 +2,7 @@ import hmac
 import base64
 import hashlib
 import datetime
+from context_manager import setlocale
 try:
   from urllib.parse import urlparse
 except:
@@ -36,7 +37,8 @@ class Signature:
     self.httpdate = httpdate
     if not self.httpdate:
       now = datetime.datetime.utcnow()
-      self.httpdate = now.strftime('%a, %d %b %Y %H:%M:%S GMT')
+      with setlocale('en_US.UTF-8'):
+        self.httpdate = now.strftime('%a, %d %b %Y %H:%M:%S GMT')
 
     url = urlparse(url)
     path = url.path
