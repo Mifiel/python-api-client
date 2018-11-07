@@ -7,11 +7,11 @@ except(IOError, ImportError):
 
 setup(
   name='mifiel',
-  version='0.0.5',
+  version='0.0.6',
   description='Python API Client library for Mifiel.com',
   long_description=long_description,
   url='http://github.com/mifiel/python-api-client',
-  download_url='https://github.com/Mifiel/python-api-client/tarball/v0.0.5',
+  download_url='https://github.com/Mifiel/python-api-client/tarball/v0.0.6',
   author='Genaro Madrid',
   author_email='genmadrid@gmail.com',
   license='MIT',
