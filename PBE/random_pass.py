@@ -1,7 +1,7 @@
 import binascii
 from Crypto.Hash import SHA256, SHA, HMAC
 from Crypto.Protocol.KDF import PBKDF2
-import random, string
+import random, string, os
 
 class RandomPass:
     MIN_ITERATIONS = 1000
@@ -22,8 +22,11 @@ class RandomPass:
         key = PBKDF2(password, salt, dkLen=size_key, count =num_iterations, prf = lambda p,s: HMAC.new(p,s,SHA256).digest())
         return binascii.hexlify(key)
 
-    def secure_random(self, length):
+    def secure_random(self, length = 16):
         myrg = random.SystemRandom()
         alphabet = string.ascii_letters + string.digits + "-_+=#&*."
         pw = str().join(myrg.choice(alphabet) for _ in range(length))
         return pw
+
+    def random_salt(self, salt_size = 16):
+        return os.urandom(salt_size)
