@@ -31,11 +31,11 @@ class TestRandomPass:
             result = rp.get_derived_key(test['key'], test['salt'], test['iterations'], test['keylen'])
             assert test['description'] == result
 
+    def test_secure_random(self, length = 32):
+        assert len(RandomPass().secure_random()) == 32
+        assert len(RandomPass().secure_random(16)) == 16
+        assert re.match('[a-zA-Z0-9-_+=#&*.]', RandomPass().secure_random())
+
     def test_random_salt(self, salt_size = 16):
         assert len(RandomPass().random_salt()) == 16
-        assert len(RandomPass().random_salt(30)) == 30
-
-    def test_secure_random(self, length = 16):
-        assert len(RandomPass().secure_random()) == 16
-        assert len(RandomPass().secure_random(32)) == 32
-        assert re.match('[a-zA-Z0-9-_+=#&*.]', RandomPass().secure_random())
+        assert len(RandomPass().random_salt(40)) == 40
