@@ -1,4 +1,4 @@
-import pytest
+import pytest, re
 from aes_cipher import AESCipher
 
 class TestAESCipher:
@@ -74,13 +74,15 @@ class TestAESCipher:
         for test in params:
             cipher = AESCipher()
             result = cipher.encrypt(test["key"], test["dataToEncrypt"], test["iv"])
-            assert test["encrypted"] == result["ciphertext"]
-            assert test["iv"] == result["iv"]
-
+            assert test["encrypted"] == result
 
     def test_decrypt(self, params):
         for test in params:
             cipher = AESCipher()
             result = cipher.decrypt(test["key"], test["encrypted"], test["iv"])
             assert test["dataToEncrypt"] == result
+
+    def test_iv(self, params):
+        assert len(AESCipher().iv()) == 16
+        assert re.match('[a-zA-Z0-9-_+=#&*.]', AESCipher().iv())
 
