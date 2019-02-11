@@ -2,7 +2,7 @@ from testlib import BaseTestCase
 from mifiel.crypto import PBE
 
 class TestPBE(BaseTestCase):
-  VALID_FIXTURES = [
+  FIXTURES = [
 		{
 			"key": "Password",
 			"salt": "NaCl",
@@ -62,7 +62,7 @@ class TestPBE(BaseTestCase):
       PBE.random_salt(8)
 
   def test_get_derived_key(self):
-    for test in self.VALID_FIXTURES:
+    for test in self.FIXTURES:
       derived_key = PBE.get_derived_key(test['key'], size=test['keylen'], salt=test['salt'], iterations=test['iterations'])
       assert derived_key == test['result']
 
