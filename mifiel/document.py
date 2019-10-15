@@ -68,7 +68,7 @@ class Document(Base):
   def delete(client, doc_id):
     base = Document(client)
     response = base.execute_request('delete', url=base.url(doc_id))
-    return response.json()
+    return response.text
 
   @staticmethod
   def create_from_template(client, args={}):

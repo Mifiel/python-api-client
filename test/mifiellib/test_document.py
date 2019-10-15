@@ -87,16 +87,12 @@ class TestDocument(BaseMifielCase):
     responses.add(
       method=responses.DELETE,
       url=url,
-      body=json.dumps({
-        'status': 'success',
-        'message': 'Destroyed document#some-doc-id',
-        'data': { 'id': 'some-doc-id'}
-      }),
-      status=200,
+      body='',
+      status=205,
       content_type='application/json',
     )
     response = Document.delete(self.client, 'some-doc-id')
-    self.assertEqual(response['status'], 'success')
+    self.assertEqual(response, '')
 
   @responses.activate
   def test_create(self):
