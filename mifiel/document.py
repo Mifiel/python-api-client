@@ -72,7 +72,11 @@ class Document(Base):
     try:
       return response.json()
     except json.JSONDecodeError:
-      return response.text
+      if response.status_code in [204, 205]:
+        # if the response body is empty returns a dictionary with the success response
+        return {'status': 'success'}
+      else:
+        return response.text
 
   @staticmethod
   def create_from_template(client, args={}):

@@ -92,7 +92,7 @@ class TestDocument(BaseMifielCase):
       content_type='application/json',
     )
     response = Document.delete(self.client, 'some-doc-id')
-    self.assertEqual(response, '')
+    self.assertEqual(response['status'], 'success')
 
   @responses.activate
   def test_delete_json_response(self):
