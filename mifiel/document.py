@@ -2,6 +2,7 @@ from mifiel import Base, Response
 import mimetypes
 from os.path import basename
 import requests
+import json
 
 class Document(Base):
   def __init__(self, client):
@@ -68,7 +69,10 @@ class Document(Base):
   def delete(client, doc_id):
     base = Document(client)
     response = base.execute_request('delete', url=base.url(doc_id))
-    return response.text
+    try:
+      return response.json()
+    except json.JSONDecodeError:
+      return response.text
 
   @staticmethod
   def create_from_template(client, args={}):

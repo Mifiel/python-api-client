@@ -81,7 +81,7 @@ class TestDocument(BaseMifielCase):
     self.assertEqual(len(docs), 1)
 
   @responses.activate
-  def test_delete(self):
+  def test_delete_empty_response(self):
     url = self.client.url().format(path='documents')
     url = '{}/{}'.format(url, 'some-doc-id')
     responses.add(
@@ -93,6 +93,24 @@ class TestDocument(BaseMifielCase):
     )
     response = Document.delete(self.client, 'some-doc-id')
     self.assertEqual(response, '')
+
+  @responses.activate
+  def test_delete_json_response(self):
+    url = self.client.url().format(path='documents')
+    url = '{}/{}'.format(url, 'some-doc-id')
+    responses.add(
+      method=responses.DELETE,
+      url=url,
+      body=json.dumps({
+        'status': 'success',
+        'message': 'Destroyed document#some-doc-id',
+        'data': {'id': 'some-doc-id'}
+      }),
+      status=200,
+      content_type='application/json',
+    )
+    response = Document.delete(self.client, 'some-doc-id')
+    self.assertEqual(response['status'], 'success')
 
   @responses.activate
   def test_create(self):
