@@ -2,7 +2,10 @@ from mifiel import Base, Response
 import mimetypes
 from os.path import basename
 import requests
-import json
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 class Document(Base):
   def __init__(self, client):

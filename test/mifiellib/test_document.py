@@ -1,9 +1,13 @@
 from mifiel import Document
 from mifiellib import BaseMifielCase
 
-import json
 import responses
 import os.path
+
+try:
+  import simplejson as json
+except ImportError:
+  import json
 
 class TestDocument(BaseMifielCase):
   def setUp(self):
