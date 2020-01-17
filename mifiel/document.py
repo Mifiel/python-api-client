@@ -2,6 +2,10 @@ from mifiel import Base, Response
 import mimetypes
 from os.path import basename
 import requests
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 class Document(Base):
   def __init__(self, client):
@@ -68,7 +72,14 @@ class Document(Base):
   def delete(client, doc_id):
     base = Document(client)
     response = base.execute_request('delete', url=base.url(doc_id))
-    return response.json()
+    try:
+      return response.json()
+    except json.JSONDecodeError:
+      if response.status_code in [204, 205]:
+        # if the response body is empty returns a dictionary with the success response
+        return {'status': 'success'}
+      else:
+        return response.text
 
   @staticmethod
   def create_from_template(client, args={}):
