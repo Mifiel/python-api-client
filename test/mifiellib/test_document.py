@@ -133,6 +133,23 @@ class TestDocument(BaseMifielCase):
     assert req.headers['Authorization'] is not None
 
   @responses.activate
+  def test_create_with_timeout(self):
+    self.client.set_timeout(timeout=2)
+    doc_id = 'some-doc-id'
+    url = self.client.url().format(path='documents')
+    self.mock_doc_response(responses.POST, url, doc_id)
+
+    signatories = [{'email': 'some@email.com'}]
+    doc = Document.create(self.client, signatories, dhash='some-sha256-hash', name='some.pdf')
+
+    req = self.get_last_request()
+    self.assertEqual(req.method, 'POST')
+    self.assertEqual(req.url, url)
+    self.assertEqual(doc.id, doc_id)
+    self.assertEqual(doc.callback_url, 'some')
+    assert req.headers['Authorization'] is not None
+
+  @responses.activate
   def test_create_with_file(self):
     doc_id = 'some-doc-id'
     url = self.client.url().format(path='documents')
