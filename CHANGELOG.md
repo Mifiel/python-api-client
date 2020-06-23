@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.8 - 22.Jun.2020
+### Features
+- Ability to use the timeout parameter of the requests
+
 ## v0.0.7 - 17.Jan.2020
 ### Bug fixes
 - Allow empty responses from server (status codes 204 and 205) - [PR#8](https://github.com/Mifiel/python-api-client/pull/8)
