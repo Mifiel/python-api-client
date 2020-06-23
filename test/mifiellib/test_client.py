@@ -15,3 +15,7 @@ class TestClient(BaseMifielCase):
   def test_base_url(self):
     self.client.set_base_url('http://example.com')
     self.assertRegex(self.client.url(), 'example.com')
+
+  def test_timeout(self):
+    self.client.set_timeout(timeout=4)
+    self.assertEqual(self.client.timeout, 4)

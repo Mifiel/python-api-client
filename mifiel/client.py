@@ -5,6 +5,7 @@ class Client:
     self.sandbox = False
     self.auth = RequestsApiAuth(app_id, secret_key)
     self.base_url = 'https://www.mifiel.com'
+    self.timeout = None
 
   def use_sandbox(self):
     self.sandbox = True
@@ -15,3 +16,7 @@ class Client:
 
   def url(self):
     return self.base_url + '/api/v1/{path}'
+
+  def set_timeout(self, timeout):
+    assert type(timeout) == int
+    self.timeout = timeout

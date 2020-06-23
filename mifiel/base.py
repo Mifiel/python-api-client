@@ -26,24 +26,32 @@ class Base(object):
     if not url:
       url = self.url()
 
+    kwargs = dict(
+      url=url,
+      auth=self.client.auth,
+      json=json,
+    )
+    if self.client.timeout:
+      kwargs.update({
+        'timeout': self.client.timeout
+      })
+
     if method == 'post':
-      response = requests.post(
-        url=url,
-        auth=self.client.auth,
-        data=data,
-        json=json,
-        files=files
-      )
+      kwargs.update({
+        'data': data,
+        'files': files
+      })
+      response = requests.post(**kwargs)
       if files:
         for file_name in files:
           file = files[file_name]
           if file: file[1].close()
     elif method == 'put':
-      response = requests.put(url, auth=self.client.auth, json=data)
+      response = requests.put(**kwargs)
     elif method == 'get':
-      response = requests.get(url, auth=self.client.auth, json=data)
+      response = requests.get(**kwargs)
     elif method == 'delete':
-      response = requests.delete(url, auth=self.client.auth, json=data)
+      response = requests.delete(**kwargs)
 
     return response
 
