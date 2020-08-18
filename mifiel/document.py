@@ -97,20 +97,17 @@ class Document(Base):
     response = call.execute_request('post', url=call.url(url), json=args)
     return response.json()
 
-  def save_file(self, path):
-    url_ = self.url('{}/file').format(self.id)
+  def write_file(self, path, type_file):
+    url_ = self.url('{}/{}').format(self.id,type_file)
     response = requests.get(url_, auth=self.client.auth)
-    with open(path, 'w') as file_:
-      file_.write(response.text)
+    with open(path, 'wb') as file_:
+        file_.write(response.content)
+
+  def save_file(self, path):
+    self.write_file(path, 'file')
 
   def save_file_signed(self, path):
-    url_ = self.url('{}/file_signed').format(self.id)
-    response = requests.get(url_, auth=self.client.auth)
-    with open(path, 'w') as file_:
-      file_.write(response.text)
+    self.write_file(path, 'file_signed')
 
   def save_xml(self, path):
-    url_ = self.url('{}/xml').format(self.id)
-    response = requests.get(url_, auth=self.client.auth)
-    with open(path, 'w') as file_:
-      file_.write(response.text)
+    self.write_file(path, 'xml')
