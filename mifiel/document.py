@@ -112,5 +112,5 @@ class Document(Base):
   def save_xml(self, path):
     url_ = self.url('{}/xml').format(self.id)
     response = requests.get(url_, auth=self.client.auth)
-    with open(path, 'wb') as file_:
-      file_.write(response.content)
+    with open(path, 'w') as file_:
+      file_.write(response.text)
