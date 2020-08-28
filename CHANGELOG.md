@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.9 - 28.Ago.2020
+### Bug fixes
+- Fix save_file and save_file_signed to save binary files
+
 ## v0.0.8 - 22.Jun.2020
 ### Features
 - Ability to use the timeout parameter of the requests
