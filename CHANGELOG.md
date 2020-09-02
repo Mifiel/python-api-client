@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.0.10 - 2.Sep.2020
+### Features
+- Allow to pass any argument to Document.create to support more features
+
 ## v0.0.9 - 28.Ago.2020
 ### Bug fixes
 - Fix save_file and save_file_signed to save binary files
