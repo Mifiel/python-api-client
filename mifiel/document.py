@@ -29,7 +29,10 @@ class Document(Base):
     return result
 
   @staticmethod
-  def create(client, signatories, file=None, dhash=None, callback_url=None, name=None):
+  def create(client, signatories, **kwargs):
+    file = kwargs.get('file')
+    dhash = kwargs.get('dhash')
+    name = kwargs.get('name')
     if not file and not dhash:
       raise ValueError('Either file or hash must be provided')
     if file and dhash:
@@ -37,23 +40,20 @@ class Document(Base):
     if dhash and not name:
       raise ValueError('A name is required when using hash')
 
-    sig_numbers = {}
-
+    data = kwargs.copy()
     for index, item in enumerate(signatories):
       for key, val in item.items():
-        sig_numbers.update(
+        data.update(
           {'signatories[' + str(index) + '][' + str(key) + ']': val}
         )
 
-    data = sig_numbers
-
-    if callback_url: data['callback_url'] = callback_url
+    if 'callback_url' in kwargs: data['callback_url'] = kwargs.get('callback_url')
     if file:
       mimetype = mimetypes.guess_type(file)[0]
       _file = open(file, 'rb')
       file = {'file': (basename(_file.name), _file, mimetype)}
-    if dhash: data['original_hash'] = dhash
-    if name: data['name'] = name
+    if dhash:
+      data['original_hash'] = data.pop('dhash')
 
     doc = Document(client)
     doc.process_request('post', data=data, files=file)
