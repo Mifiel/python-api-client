@@ -47,6 +47,14 @@ class Document(Base):
           {'signatories[' + str(index) + '][' + str(key) + ']': val}
         )
 
+    if 'viewers' in data:
+      viewers = data.pop('viewers')
+      for index, item in enumerate(viewers):
+        for key, val in item.items():
+          data.update(
+            {'viewers[' + str(index) + '][' + str(key) + ']': val}
+          )
+
     if 'callback_url' in kwargs: data['callback_url'] = kwargs.get('callback_url')
     if file:
       mimetype = mimetypes.guess_type(file)[0]
