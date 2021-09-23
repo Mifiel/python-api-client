@@ -3,19 +3,23 @@ name = "mifiel"
 version = "0.0.12"
 description = "Python API Client library for mifiel.com"
 authors = ["Genaro Madrid <genmadrid@gmail.com>"]
+readme = "README.md"
+repository = "http://github.com/mifiel/python-api-client"
+documentation = 'http://docs.mifiel.com/?python#introduction'
+packages = [
+  { include = "mifiel" },
+  { include = "mifiel/api_auth" },
+]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-cookies = "^2.2.1"
+python = ">=3.5"
 requests = ">=2.20.0"
-responses = "^0.9.0"
-unittest2 = "^1.1.0"
-nose2 = "^0.10.0"
 
 [tool.poetry.dev-dependencies]
 coverage = "^4.1"
 nose2 = "^0.10"
 pypandoc = "^1.4"
+unittest2 = "^1.1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
