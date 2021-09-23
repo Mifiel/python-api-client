@@ -1,4 +1,8 @@
-# Changelog
+# Changelog #
+
+## v0.0.11 - 23.Sep.2020 ##
+### Features
+- Allow to add viewers on document creation
 
 ## v0.0.10 - 2.Sep.2020
 ### Features
