@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "mifiel"
+version = "0.0.11"
+description = "Python API Client library for mifiel.com"
+authors = ["Genaro Madrid <genmadrid@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+cookies = "^2.2.1"
+requests = ">=2.20.0"
+responses = "^0.9.0"
+unittest2 = "^1.1.0"
+nose2 = "^0.10.0"
+
+[tool.poetry.dev-dependencies]
+coverage = "^4.1"
+nose2 = "^0.10"
+pypandoc = "^1.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
