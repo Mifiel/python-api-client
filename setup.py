@@ -8,7 +8,7 @@ except(IOError, ImportError):
 setup(
   name='mifiel',
   version='0.0.10',
-  description='Python API Client library for Mifiel.com',
+  description='Python API Client library for mifiel.com',
   long_description=long_description,
   url='http://github.com/mifiel/python-api-client',
   download_url='https://github.com/Mifiel/python-api-client/tarball/v0.0.10',
