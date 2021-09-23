@@ -1,12 +1,11 @@
 [tool.poetry]
-name = "mifiel-python-api-client"
-version = "0.1.0"
-description = ""
+name = "mifiel"
+version = "0.0.11"
+description = "Python API Client library for mifiel.com"
 authors = ["Genaro Madrid <genmadrid@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-mifiel = "^0.0.10"
 cookies = "^2.2.1"
 requests = ">=2.20.0"
 responses = "^0.9.0"
