@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mifiel"
-version = "0.0.12"
+version = "0.0.13"
 description = "Python API Client library for mifiel.com"
 authors = ["Genaro Madrid <genmadrid@gmail.com>"]
 readme = "README.md"
