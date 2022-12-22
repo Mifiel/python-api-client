@@ -45,22 +45,22 @@ from mifiel import Document, Client
 client = Client(app_id='APP_ID', secret_key='APP_SECRET')
 
 signatories = [
-  { 
-    'name': 'Signer 1', 
-    'email': 'signer1@email.com', 
-    'tax_id': 'AAA010101AAA' 
+  {
+    'name': 'Signer 1',
+    'email': 'signer1@email.com',
+    'tax_id': 'AAA010101AAA'
   },
-  { 
-    'name': 'Signer 2', 
-    'email': 
-    'signer2@email.com', 
+  {
+    'name': 'Signer 2',
+    'email':
+    'signer2@email.com',
     'tax_id': 'AAA010102AAA'
   }
 ]
 # Providde the SHA256 hash of the file you want to sign.
 doc = Document.create(client, signatories, dhash='some-sha256-hash')
 # Or just send the file and we'll take care of everything.
-# We will store the file for you. 
+# We will store the file for you.
 doc = Document.create(client, signatories, file='test/fixtures/example.pdf')
 
 doc.id # -> '7500e528-ac6f-4ad3-9afd-74487c11576a'
@@ -86,13 +86,15 @@ doc.save_xml('path/to/save/xml.xml')
 
 ### Install dependencies
 
+This project uses [poetry](https://python-poetry.org/) which you can install [here](https://python-poetry.org/docs/#installation), the just run `install` command:
+
 ```bash
-pip install -r requirements.txt
+poetry install
 ```
 
 ## Test
 
-Just clone the repo, install dependencies as you would in development and run `nose2` or `python setup.py test`
+Just clone the repo, install dependencies as you would in development and run `nose2` or `poetry run nose2`
 
 ## Contributing
 
@@ -104,9 +106,7 @@ Just clone the repo, install dependencies as you would in development and run `n
 
 [coveralls-image]: https://coveralls.io/repos/github/Mifiel/python-api-client/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/Mifiel/python-api-client?branch=master
-
 [travis-image]: https://travis-ci.org/Mifiel/python-api-client.svg?branch=master
 [travis-url]: https://travis-ci.org/Mifiel/python-api-client
-
 [pypi-image]: https://badge.fury.io/py/mifiel.svg
 [pypi-url]: https://badge.fury.io/py/mifiel
