@@ -17,9 +17,9 @@ pip install mifiel
 
 For your convenience Mifiel offers a Sandbox environment where you can confidently test your code.
 
-To start using the API in the Sandbox environment you need to first create an account at [sandbox.mifiel.com](https://sandbox.mifiel.com).
+To start using the API in the Sandbox environment you need to first create an account at [app-sandbox.mifiel.com](https://app-sandbox.mifiel.com).
 
-Once you have an account you will need an APP_ID and an APP_SECRET which you can generate in [sandbox.mifiel.com/access_tokens](https://sandbox.mifiel.com/access_tokens).
+Once you have an account you will need an APP_ID and an APP_SECRET which you can generate in [app-sandbox.mifiel.com/access_tokens](https://app-sandbox.mifiel.com/access_tokens).
 
 ### Document methods:
 
@@ -57,13 +57,8 @@ signatories = [
     'tax_id': 'AAA010102AAA'
   }
 ]
-# Providde the SHA256 hash of the file you want to sign.
-doc = Document.create(client, signatories, dhash='some-sha256-hash')
-# Or just send the file and we'll take care of everything.
-# We will store the file for you.
 doc = Document.create(client, signatories, file='test/fixtures/example.pdf')
 
-doc.id # -> '7500e528-ac6f-4ad3-9afd-74487c11576a'
 doc.id # -> '7500e528-ac6f-4ad3-9afd-74487c11576a'
 ```
 
