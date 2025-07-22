@@ -50,11 +50,10 @@ class Document(Base):
 
     if 'viewers' in data:
       viewers = data.pop('viewers')
-      for index, item in enumerate(viewers):
-        for key, val in item.items():
-          data.update(
-            {'viewers[' + str(index) + '][' + str(key) + ']': val}
-          )
+      for index, item in enumerate(signatories):
+      for key, val in item.items():
+        value = json.dumps(val) if key == 'allowed_signature_methods' and isinstance(val, list) else val
+        data[f'signatories[{index}][{key}]'] = value
 
     if 'callback_url' in kwargs: data['callback_url'] = kwargs.get('callback_url')
     if file:
