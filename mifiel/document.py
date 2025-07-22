@@ -46,9 +46,13 @@ class Document(Base):
       for key, val in item.items():
         if key == 'allowed_signature_methods' and isinstance(val, list):
           for method in val:
-            data[f'signatories[{index}][{key}][]'] = method
+            data.append(
+              (f'signatories[{index}][{key}][]', method)
+            )
         else:
-            data[f'signatories[{index}][{key}]'] = val
+            data.append(
+              (f'signatories[{index}][{key}]', val)
+            )
 
     if 'viewers' in data:
       viewers = data.pop('viewers')
