@@ -1,5 +1,6 @@
 from mifiel import Base, Response
 import mimetypes
+import os
 from os.path import basename
 import requests
 try:
@@ -108,17 +109,26 @@ class Document(Base):
   def save_file(self, path):
     url_ = self.url('{}/file').format(self.id)
     response = requests.get(url_, auth=self.client.auth)
+    self._ensure_parent_dir(path)
     with open(path, 'wb') as file_:
       file_.write(response.content)
 
   def save_file_signed(self, path):
     url_ = self.url('{}/file_signed').format(self.id)
     response = requests.get(url_, auth=self.client.auth)
+    self._ensure_parent_dir(path)
     with open(path, 'wb') as file_:
       file_.write(response.content)
 
   def save_xml(self, path):
     url_ = self.url('{}/xml').format(self.id)
     response = requests.get(url_, auth=self.client.auth)
+    self._ensure_parent_dir(path)
     with open(path, 'w') as file_:
       file_.write(response.text)
+
+  @staticmethod
+  def _ensure_parent_dir(path):
+    directory = os.path.dirname(path)
+    if directory:
+      os.makedirs(directory, exist_ok=True)

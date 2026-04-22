@@ -94,7 +94,11 @@ poetry install
 
 ## Test
 
-Just clone the repo, install dependencies as you would in development and run `nose2` or `poetry run nose2`
+Just clone the repo, install dependencies as you would in development and run:
+
+```bash
+poetry run pytest
+```
 
 ## Contributing
 
