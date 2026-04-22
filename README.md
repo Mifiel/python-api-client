@@ -1,6 +1,5 @@
 # Mifiel Python Library
 
-[![Coverage Status][coveralls-image]][coveralls-url]
 [![Build Status][travis-image]][travis-url]
 [![PyPI version][pypi-image]][pypi-url]
 
