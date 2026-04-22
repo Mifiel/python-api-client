@@ -1,20 +1,15 @@
 language: python
-sudo: required
-dist: xenial
+dist: focal
 
 python:
-  - 3.5
-  - 3.6
-  - 3.7
+  - "3.10"
+  - "3.11"
+  - "3.12"
 
 install:
-  - pip install -r requirements.txt
+  - python -m pip install --upgrade pip
+  - python -m pip install poetry
+  - poetry install
 
 script:
-  - mkdir -p tmp
-  - pip install requests==2.18.4
-  - pip install coveralls
-  - coverage run setup.py test
-
-after_success:
-  coveralls
+  - poetry run pytest
