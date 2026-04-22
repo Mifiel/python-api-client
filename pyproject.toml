@@ -12,14 +12,32 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.5"
-requests = ">=2.20.0"
+python = ">=3.10,<4.0"
+requests = "^2.32.5"
 
-[tool.poetry.dev-dependencies]
-coverage = "^4.1"
-nose2 = "^0.10"
-pypandoc = "^1.4"
-unittest2 = "^1.1.0"
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.11.0"
+pypandoc = "^1.15"
+pytest = "^9.0.3"
+pytest-cov = "^7.0.0"
+responses = "^0.26.0"
+ruff = "^0.15.11"
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+python_files = ["test_*.py"]
+
+[tool.coverage.run]
+source = ["mifiel"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
