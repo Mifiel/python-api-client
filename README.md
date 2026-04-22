@@ -103,8 +103,6 @@ poetry run pytest
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-[coveralls-image]: https://coveralls.io/repos/github/Mifiel/python-api-client/badge.svg?branch=master
-[coveralls-url]: https://coveralls.io/github/Mifiel/python-api-client?branch=master
 [travis-image]: https://travis-ci.org/Mifiel/python-api-client.svg?branch=master
 [travis-url]: https://travis-ci.org/Mifiel/python-api-client
 [pypi-image]: https://badge.fury.io/py/mifiel.svg
