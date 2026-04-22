@@ -11,8 +11,8 @@ python:
 
 install:
   - python -m pip install --upgrade pip
-  - python -m pip install poetry
-  - poetry install
+  - python -m pip install "poetry==2.3.4"
+  - poetry install --no-interaction --no-ansi
 
 script:
   - poetry run pytest
