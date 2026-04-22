@@ -1,5 +1,19 @@
 # Changelog #
 
+## v1.0.0 - 22.Apr.2026
+
+### Breaking changes
+
+- **Python**: the minimum supported version is now **3.10** (Python **3.9** is no longer supported). This release is tagged **1.0.0** to reflect that compatibility change — [PR#16](https://github.com/Mifiel/python-api-client/pull/16)
+
+### Bug fixes
+
+- Encode `allowed_signature_methods` correctly when creating documents — [PR#15](https://github.com/Mifiel/python-api-client/pull/15)
+
+### Tooling
+
+- Modernize packaging and CI (Poetry-only build, pytest, Ruff, upgraded dependencies, Travis on Python 3.10–3.12, remove legacy `setup.py` / `requirements.txt` install path) — [PR#16](https://github.com/Mifiel/python-api-client/pull/16)
+
 ## v0.0.11 - 23.Sep.2020 ##
 ### Features
 - Allow to add viewers on document creation
