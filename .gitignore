@@ -11,3 +11,4 @@ build
 README.txt
 tmp
 .eggs
+.venv/
