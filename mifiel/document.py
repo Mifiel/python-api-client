@@ -42,17 +42,16 @@ class Document(Base):
       raise ValueError('A name is required when using hash')
 
     data = kwargs.copy()
+    signatory_array_fields = []
     for index, item in enumerate(signatories):
       for key, val in item.items():
         if key == 'allowed_signature_methods' and isinstance(val, list):
           for method in val:
-            data.append(
+            signatory_array_fields.append(
               (f'signatories[{index}][{key}][]', method)
             )
         else:
-            data.append(
-              (f'signatories[{index}][{key}]', val)
-            )
+          data[f'signatories[{index}][{key}]'] = val
 
     if 'viewers' in data:
       viewers = data.pop('viewers')
@@ -62,13 +61,18 @@ class Document(Base):
             {'viewers[' + str(index) + '][' + str(key) + ']': val}
           )
 
-    if 'callback_url' in kwargs: data['callback_url'] = kwargs.get('callback_url')
+    if 'callback_url' in kwargs:
+      data['callback_url'] = kwargs.get('callback_url')
+    if dhash:
+      data['original_hash'] = data.pop('dhash')
+
+    if signatory_array_fields:
+      data = list(data.items()) + signatory_array_fields
+
     if file:
       mimetype = mimetypes.guess_type(file)[0]
       _file = open(file, 'rb')
       file = {'file': (basename(_file.name), _file, mimetype)}
-    if dhash:
-      data['original_hash'] = data.pop('dhash')
 
     doc = Document(client)
     doc.process_request('post', data=data, files=file)
