@@ -9,6 +9,10 @@
   - Sandbox (`Client.use_sandbox()`): `https://sandbox.mifiel.com` → `https://app-sandbox.mifiel.com`
 - If you relied on the previous defaults (or on mocks/stubs keyed to those hosts), update your configuration or call `set_base_url(...)` explicitly.
 
+### Features
+
+- Send a standardized `User-Agent` on API requests, e.g. `PYTHON/3.12.1 mifiel/2.0.0 requests/2.32.5 (Linux/6.8.0)`.
+
 ### Migration
 
 ```python
