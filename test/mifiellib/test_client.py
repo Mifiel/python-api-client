@@ -6,11 +6,11 @@ class TestClient(BaseMifielCase):
     self.client = Client('app_id', 'secret')
 
   def test_url(self):
-    self.assertRegex(self.client.url(), 'www.mifiel')
+    self.assertRegex(self.client.url(), 'app.mifiel.com')
 
   def test_sandbox(self):
     self.client.use_sandbox()
-    self.assertRegex(self.client.url(), 'sandbox.mifiel')
+    self.assertRegex(self.client.url(), 'app-sandbox.mifiel.com')
 
   def test_base_url(self):
     self.client.set_base_url('http://example.com')

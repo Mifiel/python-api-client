@@ -18,7 +18,9 @@ For your convenience Mifiel offers a Sandbox environment where you can confident
 
 To start using the API in the Sandbox environment you need to first create an account at [app-sandbox.mifiel.com](https://app-sandbox.mifiel.com).
 
-Once you have an account you will need an APP_ID and an APP_SECRET which you can generate in [app-sandbox.mifiel.com/access_tokens](https://app-sandbox.mifiel.com/access_tokens).
+Once you have an account you will need an APP_ID and an APP_SECRET which you can generate in [app-sandbox.mifiel.com/settings/access-tokens](https://app-sandbox.mifiel.com/settings/access-tokens).
+
+By default the client talks to production (`https://app.mifiel.com`). For sandbox, call `client.use_sandbox()` (uses `https://app-sandbox.mifiel.com`), or override with `client.set_base_url(...)`.
 
 ### Document methods:
 
