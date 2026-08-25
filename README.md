@@ -96,6 +96,38 @@ Just clone the repo, install dependencies as you would in development and run:
 poetry run pytest
 ```
 
+## Publish
+
+The package is published to [PyPI](https://pypi.org/project/mifiel/) as `mifiel` using Poetry. Bump the version in `pyproject.toml` (and `CHANGELOG.md`) first — PyPI will reject a version that already exists.
+
+Create an [API token](https://pypi.org/manage/account/token/) on PyPI (you need Maintainer or Owner on the project), then configure Poetry:
+
+```bash
+poetry config pypi-token.pypi pypi-AgEIcHlwaS5vcmc...
+```
+
+Or set it for a single session:
+
+```bash
+export POETRY_PYPI_TOKEN_PYPI=pypi-AgEIcHlwaS5vcmc...
+```
+
+Build and publish:
+
+```bash
+poetry install --no-interaction
+poetry run pytest
+poetry publish --build
+```
+
+To dry-run against [TestPyPI](https://test.pypi.org/):
+
+```bash
+poetry config repositories.testpypi https://test.pypi.org/legacy/
+poetry config pypi-token.testpypi pypi-...
+poetry publish --repository testpypi --build
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/Mifiel/python-api-client/fork )
