@@ -1,5 +1,30 @@
 # Changelog #
 
+## v2.0.0 - 21.Aug.2026
+
+### Breaking changes
+
+- **Default API hosts** now use the canonical app domains:
+  - Production: `https://www.mifiel.com` → `https://app.mifiel.com`
+  - Sandbox (`Client.use_sandbox()`): `https://sandbox.mifiel.com` → `https://app-sandbox.mifiel.com`
+- If you relied on the previous defaults (or on mocks/stubs keyed to those hosts), update your configuration or call `set_base_url(...)` explicitly.
+
+### Features
+
+- Send a standardized `User-Agent` on API requests, e.g. `PYTHON/3.12.1 mifiel/2.0.0 requests/2.32.5 (Linux/6.8.0)`.
+
+### Migration
+
+```python
+from mifiel import Client
+
+client = Client(app_id='APP_ID', secret_key='APP_SECRET')
+# Production requests now go to https://app.mifiel.com/api/v1/...
+
+client.use_sandbox()
+# Sandbox requests now go to https://app-sandbox.mifiel.com/api/v1/...
+```
+
 ## v1.0.0 - 22.Apr.2026
 
 ### Breaking changes
