@@ -5,6 +5,7 @@ from .response import Response
 from .base import Base
 from .document import Document
 from .template import Template
+from .webhook import Webhook
 
 __all__ = [
   '__version__',
@@ -13,4 +14,5 @@ __all__ = [
   'Base',
   'Document',
   'Template',
+  'Webhook',
 ]
