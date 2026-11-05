@@ -1,4 +1,4 @@
-from mifiel import Base, Response
+from mifiel import Base
 import mimetypes
 import os
 from os.path import basename
@@ -42,6 +42,7 @@ class Document(Base):
       raise ValueError('A name is required when using hash')
 
     data = kwargs.copy()
+    data.pop('file', None)
     signatory_array_fields = []
     for index, item in enumerate(signatories):
       for key, val in item.items():
@@ -69,14 +70,48 @@ class Document(Base):
     if signatory_array_fields:
       data = list(data.items()) + signatory_array_fields
 
-    if file:
-      mimetype = mimetypes.guess_type(file)[0]
-      _file = open(file, 'rb')
-      file = {'file': (basename(_file.name), _file, mimetype)}
-
     doc = Document(client)
-    doc.process_request('post', data=data, files=file)
+    if file:
+      mimetype = mimetypes.guess_type(str(file))[0]
+      with open(file, 'rb') as upload:
+        files = {'file': (basename(upload.name), upload, mimetype)}
+        doc.process_request('post', data=data, files=files)
+    else:
+      doc.process_request('post', data=data)
     return doc
+
+  def get_state(self):
+    """Return document state, signing groups and stakeholders as a dictionary."""
+    response = self.execute_request('get', url=self.url(self._document_path('state')))
+    return response.json()
+
+  def add_stakeholder(self, params):
+    """Add a signer or reviewer and return the decoded API response."""
+    response = self.execute_request(
+      'post', url=self.url(self._document_path('stakeholders')), json=params,
+    )
+    return response.json()
+
+  def update_stakeholder(self, stakeholder_id, params):
+    """Update a stakeholder without replacing this document's attributes."""
+    response = self.execute_request(
+      'put', url=self.url(self._stakeholder_path(stakeholder_id)), json=params,
+    )
+    return response.json()
+
+  def delete_stakeholder(self, stakeholder_id):
+    """Return the HTTP response, including empty 204 or 205 responses."""
+    return self.execute_request('delete', url=self.url(self._stakeholder_path(stakeholder_id)))
+
+  def _document_path(self, operation):
+    if not self.id:
+      raise ValueError('Document id is required')
+    return f'{self.id}/{operation}'
+
+  def _stakeholder_path(self, stakeholder_id):
+    if not stakeholder_id:
+      raise ValueError('Stakeholder id is required')
+    return self._document_path(f'stakeholders/{stakeholder_id}')
 
   def request_signature(self, signer, cc=None):
     path = '{}/{}'.format(self.id, 'request_signature')
@@ -117,28 +152,25 @@ class Document(Base):
     return response.json()
 
   def save_file(self, path):
-    url_ = self.url('{}/file').format(self.id)
-    response = requests.get(url_, auth=self.client.auth, timeout=self._request_timeout())
-    response.raise_for_status()
-    self._ensure_parent_dir(path)
-    with open(path, 'wb') as file_:
-      file_.write(response.content)
+    self._save_download(path, 'file')
 
   def save_file_signed(self, path):
-    url_ = self.url('{}/file_signed').format(self.id)
+    self._save_download(path, 'file_signed')
+
+  def save_zip(self, path):
+    """Download the signed PDF/XML archive to a local file."""
+    self._save_download(path, 'zip')
+
+  def save_xml(self, path):
+    self._save_download(path, 'xml')
+
+  def _save_download(self, path, operation):
+    url_ = self.url(self._document_path(operation))
     response = requests.get(url_, auth=self.client.auth, timeout=self._request_timeout())
     response.raise_for_status()
     self._ensure_parent_dir(path)
     with open(path, 'wb') as file_:
       file_.write(response.content)
-
-  def save_xml(self, path):
-    url_ = self.url('{}/xml').format(self.id)
-    response = requests.get(url_, auth=self.client.auth, timeout=self._request_timeout())
-    response.raise_for_status()
-    self._ensure_parent_dir(path)
-    with open(path, 'w') as file_:
-      file_.write(response.text)
 
   def _request_timeout(self):
     return self.client.timeout if self.client.timeout else 30

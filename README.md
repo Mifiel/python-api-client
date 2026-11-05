@@ -39,6 +39,8 @@ client.use_sandbox()
 
 ## Development
 
+Python 3.10 or later is required. CI tests Python 3.10–3.14.
+
 This project uses [Poetry](https://python-poetry.org/docs/#installation):
 
 ```bash

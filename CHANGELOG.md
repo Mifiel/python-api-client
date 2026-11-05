@@ -1,5 +1,34 @@
 # Changelog #
 
+## v2.1.0 - Unreleased
+
+### Features
+
+- Add `Document.get_state()`, `add_stakeholder()`, `update_stakeholder()` and
+  `delete_stakeholder()` for document state and signer/reviewer management.
+- Add `Document.save_zip()` for signed PDF/XML archives.
+- Export `Query.execute(client, params)` for advanced queries at `/api/query`,
+  preserving the entire response and pagination metadata.
+- Add webhook coverage and CI coverage through Python 3.14.
+
+### Bug fixes
+
+- Send form data on PUT requests so document and template updates persist changes.
+- Encode form booleans as lowercase `true`/`false`; retain zero and empty values.
+- Support GET query parameters through `params`.
+- Raise `requests.HTTPError` for failed API requests, including lists, deletes and
+  webhook operations that previously returned error payloads as successful results.
+- Close uploads on request failure and omit the local file path from upload form data.
+- Save XML as original response bytes and check document IDs before downloads.
+
+### Compatibility
+
+- Python >=3.10 and Requests 2.x requirements are unchanged.
+- `delete_stakeholder()` returns the HTTP response so callers can inspect empty
+  204 responses (documented) or 205 responses (observed in sandbox).
+- Existing successful return values remain unchanged; callers should handle
+  `requests.HTTPError` for unsuccessful HTTP responses.
+
 ## v2.0.0 - 21.Aug.2026
 
 ### Breaking changes

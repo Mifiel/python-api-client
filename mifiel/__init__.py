@@ -6,6 +6,7 @@ from .base import Base
 from .document import Document
 from .template import Template
 from .webhook import Webhook
+from .query import Query
 
 __all__ = [
   '__version__',
@@ -15,4 +16,5 @@ __all__ = [
   'Document',
   'Template',
   'Webhook',
+  'Query',
 ]

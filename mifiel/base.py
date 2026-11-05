@@ -22,7 +22,9 @@ class Base(object):
 
     return self.client.url().format(path=p)
 
-  def execute_request(self, method, url=None, data=None, json=None, files=None):
+  def execute_request(self, method, url=None, data=None, json=None, files=None, params=None):
+    if method not in ('post', 'put', 'get', 'delete'):
+      raise ValueError(f'Unsupported HTTP method: {method}')
     if not url:
       url = self.url()
 
@@ -31,32 +33,45 @@ class Base(object):
       auth=self.client.auth,
       json=json,
     )
+    if params is not None:
+      kwargs['params'] = params
     if self.client.timeout:
       kwargs.update({
         'timeout': self.client.timeout
       })
 
-    if method == 'post':
+    if method in ('post', 'put'):
       kwargs.update({
-        'data': data,
+        'data': self._form_data(data),
         'files': files
       })
-      response = requests.post(**kwargs)
-      if files:
-        for file_name in files:
-          file = files[file_name]
-          if file: file[1].close()
-    elif method == 'put':
-      response = requests.put(**kwargs)
-    elif method == 'get':
-      response = requests.get(**kwargs)
-    elif method == 'delete':
-      response = requests.delete(**kwargs)
 
-    return response
+    try:
+      response = getattr(requests, method)(**kwargs)
+      response.raise_for_status()
+      return response
+    finally:
+      # Close uploads even when the request or HTTP status validation fails.
+      if files and method in ('post', 'put'):
+        parts = files.values() if isinstance(files, dict) else (part for _, part in files)
+        for part in parts:
+          stream = part[1] if isinstance(part, (tuple, list)) else part
+          if hasattr(stream, 'close'):
+            stream.close()
 
-  def process_request(self, method, url=None, data=None, json=None, files=None):
-    response = self.execute_request(method, url, data, json, files)
+  @staticmethod
+  def _form_data(data):
+    # Requests otherwise serializes booleans as "False"/"True", which are not
+    # canonical boolean values for the API's form parameters.
+    if isinstance(data, dict):
+      data = data.items()
+    elif not isinstance(data, (list, tuple)):
+      return data
+    return [(key, str(value).lower() if isinstance(value, bool) else value)
+            for key, value in data]
+
+  def process_request(self, method, url=None, data=None, json=None, files=None, params=None):
+    response = self.execute_request(method, url, data, json, files, params)
     self.set_data(response)
 
   def set_data(self, response):
