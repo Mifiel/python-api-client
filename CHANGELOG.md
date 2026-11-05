@@ -9,7 +9,7 @@
 - Add `Document.save_zip()` for signed PDF/XML archives.
 - Export `Query.execute(client, params)` for advanced queries at `/api/query`,
   preserving the entire response and pagination metadata.
-- Add Python examples, webhook coverage and CI coverage through Python 3.14.
+- Add webhook coverage and CI coverage through Python 3.14.
 
 ### Bug fixes
 

@@ -12,8 +12,7 @@ API reference, guides, and examples:
 - English: https://docs.mifiel.com/en/
 - Español: https://docs.mifiel.com/es/
 
-This README covers installation and client setup. See [Python examples](examples/usage.md)
-for document state, stakeholders, signed downloads, advanced queries and webhooks.
+This README covers installation and client setup only.
 
 ## Installation
 
